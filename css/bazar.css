@@ -1,5 +1,13 @@
-
+body{
+	background-color: #FFFFFF;
+}
 #new-user{
 	width: 150px;
 	text-align: left;
+}
+.navbar{
+	background-color: #EDE7F6;
+}
+.btn-info{
+	background-color: #9575CD;
 }
