@@ -45,7 +45,7 @@
             <br>
             <div class="input-group">
                 <label>Tipo de Usuario</label><br>
-                <select class="btn btn-sm btn-default" id="in-type-new-user">
+                <select class="btn btn-sm btn-default form-control" id="in-type-new-user">
                     <option value="1">Administrador</option>
                     <option value="2">Consumidor</option>
                 </select>

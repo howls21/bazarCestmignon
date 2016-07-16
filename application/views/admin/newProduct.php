@@ -16,7 +16,7 @@
             <br>
             <div class="input-group">
                 <label><span class="glyphicon glyphicon-bookmark"></span> Categoria</label><br>
-                <select class="btn btn-block btn-default" id="in-category-product-new">
+                <select class="btn btn-block btn-default form-control" id="in-category-product-new">
                     <?php
                     $i = 0;
                     foreach ($datos as $fila):

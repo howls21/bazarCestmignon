@@ -1,9 +1,8 @@
-# CodeIgniter 2
-Open Source PHP Framework (originally from EllisLab)
+#Tienda CestMignon
 
-For more info, please refer to the user-guide at http://www.codeigniter.com/userguide2/  
-(also available within the download package for offline use)
-
-**WARNING:** *CodeIgniter 2.x is no longer under development and only receives security patches until October 31st, 2015.
-Please update your installation to the latest CodeIgniter 3.x version available
-(upgrade instructions [here](http://www.codeigniter.com/userguide3/installation/upgrade_300.html)).*
+###Sitio web de la tienda CestMignon
+>Entre las funciones del sitio se destaca la gestión de 
+ productos, stock, usuarios, administradores, carros de compra.
+ 
+ Software bajo licencia _[GPLv3](https://www.gnu.org/licenses/gpl-3.0.txt)_  
+ ![](https://www.gnu.org/graphics/gplv3-88x31.png)
