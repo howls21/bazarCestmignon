@@ -11,6 +11,36 @@ class Controlador extends CI_Controller
         parent::__construct();
         $this->load->model("modelo");
         $this->load->library("cart");
+        $this->load->helper(array('download', 'file', 'url', 'html', 'form'));
+        $this->folder = 'imgProductos/';
+    }
+
+    /**
+     * Funcion para subir imagen de producto a agregar
+    */
+    public function do_upload()
+    {
+        //configuracion de archivo
+        $config['upload_path']   = $this->folder;
+        $config['allowed_types'] = 'jpg|gif|png|jpeg';
+        $config['remove_spaces'] = TRUE;
+        $config['max_size']      = '2048';
+        $config['overwrite']     = TRUE;
+        //se carga la libreria para subir archivos
+        $this->load->library('upload', $config);
+        //si no se pudo agregar el archivo
+        if ( ! $this->upload->do_upload())
+        {
+            $error = array('error' => $this->upload->display_errors());
+        }
+        //si se agregó el archivo exitosamente
+        else
+        {
+            $datos['datos'] = $this->modelo->categoryList()->result();
+            $data['data'] = array('upload_data' => $this->upload->data());
+            $this->load->view('admin/newProduct',$data,$datos);
+        }
+
     }
 
     public function index()
@@ -147,16 +177,6 @@ class Controlador extends CI_Controller
     public function getProduct($id_producto)
     {
         return $this->modelo->getProductById($id_producto)->result();
-    }
-
-    public function subirImagen()
-    {
-        $config['upload_path'] = './img/';
-        $config['allowed_types'] = 'gif|jpg|png';
-        $config['max_size'] = '2048';
-        $config['max_width'] = '2024';
-        $config['max_height'] = '2008';
-        $this->load->library('upload', $config);
     }
 
     function divLogin()

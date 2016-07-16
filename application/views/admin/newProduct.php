@@ -16,7 +16,7 @@
             <br>
             <div class="input-group">
                 <label><span class="glyphicon glyphicon-bookmark"></span> Categoria</label><br>
-                <select class="btn btn-block btn-default form-control" id="in-category-product-new">
+                <select class="btn btn-block btn-default" id="in-category-product-new">
                     <?php
                     $i = 0;
                     foreach ($datos as $fila):
@@ -71,14 +71,16 @@
 <div class="row">
     <div class="col-lg-6">
         <div class="">
-            <form enctype="multipart/form-data" class="formulario">
-                <label>Subir un archivo</label><br />
-                <input name="archivo" type="file" id="imagen" class="form-control"/><br /><br />
-                <input type="button" value="Subir imagen" class="btn btn-warning" /><br />
-            </form>
+            <img class="img-circle" src="<?php echo base_url() + "imgProductos/" ?><?php echo $data['upload_data']['file_name']; ?>"width="140" height="140">
+            <?=form_open_multipart('controlador/do_upload');?>
+            <label>Subir un archivo</label><br/>
+            <input type="file" class="" name="userfile" size="20" />
+            <br />
+            <input type="submit" class="btn btn-default" value="Subir Archivo" />
+            <?=form_close()?>
             <!--div para visualizar mensajes-->
             <div class="messages"></div><br /><br />
-            <!--div para visualizar en el caso de imagen--> 
+            <!--div para visualizar en el caso de imagen-->
             <div class="showImage"></div>
         </div>
         <div id="msj-reg-user"></div>
