@@ -29,7 +29,10 @@
                     <ul class="nav navbar-nav">
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a id="user-Pedido" class="alert alert-default"><span></span></a></li>
+                        <li><a id="user-Pedido">
+                                
+                            </a>
+                        </li>
                         <li><a id="user-active"></a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
