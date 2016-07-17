@@ -1,14 +1,26 @@
-<h1><strong>Mi Carrito RQL:</strong></h1>
-<?php foreach ($datos as $fila): ?>
-    <div class="col-xs-3">
-        <img class="img-circle center-block" src="<?php echo base_url() ?>" width="140" height="140">
-        <h4 class="alert alert-success"><span><strong><?php echo $fila['name']; ?></strong></span></h4>
-        <p><span><strong>Precio:</strong>$ <?php echo number_format($fila['price']); ?></span></p>
-        <h5 class="alert alert-warning"><span><strong>Cantidad:</strong> <?php echo $fila['qty']; ?></span></h5>
-        <h5 class="alert alert-danger">
-            <span><strong>Subtotal:</strong> $ <?php echo number_format($fila['subtotal']); ?></span></h5>
-    </div><!-- /.col-lg-4 -->
-    </div><!-- /.col-lg-4 -->
-<?php endforeach; ?>
-<a class="btn btn-danger btn-lg" id="btn-cancel" role="button" onclick="cancelCart()">Cancelar Carro Ql!</a>
-<a class="btn btn-success btn-lg" id="btn-agregarProductos" role="button" onclick="comprarMas()">Seguir Comprando</a>
+<h1><strong>Mis Pedidos:</strong></h1>
+<div class="row">
+    <?php foreach ($datos as $fila): ?>
+        <div class="col-xs-3">
+            <h4 class="alert form-control" align="center"><span><strong><?php echo $fila['name']; ?></strong></span></h4>
+            <p class="form-control" align="center"><span><strong>Precio:</strong>$ <?php echo number_format($fila['price']); ?></span></p>
+            <div class="input-group input-group-sm">
+                <span class="input-group-addon" id="basic-addon1" aria-hidden="true">Cantidad: </span>
+                <input class="form-control" type="number" value="<?php echo $fila['qty']; ?>" />
+            </div><br>
+            <h5 class="alert alert-success">
+                <span><strong>Subtotal:</strong> $ <?php echo number_format($fila['subtotal']); ?></span></h5>
+            <p><a class="btn btn-block btn-danger" onclick="deletProductCart(<?php echo $fila['rowid'];?>)">Eliminar Producto</a></p>
+        </div><!-- /.col-xs-3 -->
+    <?php endforeach; ?>
+</div>
+<div class="input-group input-group-sm">
+    <h5 class="alert alert-success">
+        <span><strong>Total: </strong> $ <?php echo number_format($this->cart->Total()); ?></span>
+    </h5>
+</div>
+<div class="row">
+    <br>
+    <a class="btn btn-danger btn-sm" id="btn-cancel" role="button" onclick="cancelCart()">Cancelar Todo!</a>
+    <a class="btn btn-success btn-sm" id="btn-agregarProductos" role="button" onclick="comprarMas()">Seguir Comprando</a>
+</div>
