@@ -10,7 +10,7 @@
             </div><br>
             <h5 class="alert alert-success">
                 <span><strong>Subtotal:</strong> $ <?php echo number_format($fila['subtotal']); ?></span></h5>
-            <p><a class="btn btn-block btn-danger" onclick="deletProductCart(<?php echo $fila['rowid'];?>)">Eliminar Producto</a></p>
+            <p><a class="btn btn-block btn-danger" onclick="deleteProductCart(<?php echo $fila['rowid'];?>)">Eliminar Producto</a></p>
         </div><!-- /.col-xs-3 -->
     <?php endforeach; ?>
 </div>

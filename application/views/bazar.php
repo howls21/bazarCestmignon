@@ -8,11 +8,16 @@
         <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>css/default.css">
         <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>css/bazar.css">
+        <link rel="stylesheet" href="<?php echo base_url() ?>css/jquery.fileupload.css">
         <!--Carga de javaScripts-->
         <script type="text/javascript" src="<?php echo base_url() ?>js/jquery.js"></script>
         <script type="text/javascript" src="<?php echo base_url() ?>js/bootstrap.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url() ?>js/bazar.js"></script>
         <script type="text/javascript">var base_url = "<?php echo base_url() ?>index.php/";</script>
+        <script type="text/javascript" src="<?php echo base_url() ?>js/jquery.ui.widget.js"></script>
+        <script type="text/javascript" src="<?php echo base_url() ?>js/jquery.iframe-transport.js"></script>
+        <script type="text/javascript" src="<?php echo base_url() ?>js/jquery.fileupload.js"></script>
+
     </head>
     <body>
         <!-- Static navbar -->
@@ -47,6 +52,14 @@
                 <div id="info-left"></div>
             </div>
             <div class="col-xs-8">
+                <div class="row">
+                    <div id="message-success" class="alert alert-success" role="alert">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    </div>
+                    <div id="message-error" class="alert alert-danger" role="alert">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    </div>
+                </div>
                 <div id="info-center"></div>
                 <div id="footer"></div>
             </div>

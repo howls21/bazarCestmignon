@@ -2,42 +2,29 @@
 
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
+class Controlador extends CI_Controller
+{
 
-class Controlador extends CI_Controller {
-
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->load->model("modelo");
         $this->load->library("cart");
         $this->load->helper(array('download', 'file', 'url', 'html', 'form'));
-        $this->folder = 'imgProductos/';
     }
 
-    /**
-     * Funcion para subir imagen de producto a agregar
-     */
-    public function do_upload() {
-        //configuracion de archivo
-        $config['upload_path'] = $this->folder;
-        $config['allowed_types'] = 'jpg|gif|png|jpeg';
-        $config['remove_spaces'] = TRUE;
-        $config['max_size'] = '2048';
-        $config['overwrite'] = TRUE;
-        //se carga la libreria para subir archivos
-        $this->load->library('upload', $config);
-        $data['data'] = array('upload_data' => $this->upload->data());
-        return $data;
-    }
-
-    public function index() {
+    public function index()
+    {
         $this->load->view('bazar');
     }
+
     /**
      * Funcion que ingresa productos al carrito
      * @param Object producto
      * @return void
      */
-    public function addProductCart() {
+    public function addProductCart()
+    {
         //se obtiene el id del producto desde el js
         $id = $this->input->post("id");
         //se busca el producto mediante el id
@@ -71,20 +58,25 @@ class Controlador extends CI_Controller {
         $this->cart->insert($data);
         //se muestra la vista con el contenido del carrito
     }
-    function deletProductCart(){
+
+    function deletProductCart()
+    {
         $datos = $this->cart->contents();
     }
+
     /**
      * Funcion que muestra la vista del carrito
      */
-    public function verCarrito() {
+    public function verCarrito()
+    {
         //se obtienen los datos contenidos en el carrito
         $datos['datos'] = $this->getContentCart();
         //se carga la vista newPedido con los datos del carrito
         $this->load->view('consumer/newPedido', $datos);
     }
 
-    function conteoCart() {
+    function conteoCart()
+    {
         $this->load->view('conteoCart');
     }
 
@@ -93,7 +85,8 @@ class Controlador extends CI_Controller {
      * @param void
      * @return void
      */
-    public function cancelCart() {
+    public function cancelCart()
+    {
 //        //se obtiene el contenido del carrito
 //        $carrito = $this->cart->contents();
 //        //se recorre el contenido del carrito para obtener los productos y su cantidad
@@ -129,7 +122,8 @@ class Controlador extends CI_Controller {
      * @param void
      * @return int total
      */
-    public function getTotalCart() {
+    public function getTotalCart()
+    {
         return $this->cart->total();
     }
 
@@ -138,7 +132,8 @@ class Controlador extends CI_Controller {
      * @param void
      * @return Array contents
      */
-    public function getContentCart() {
+    public function getContentCart()
+    {
         return $this->cart->contents();
     }
 
@@ -147,7 +142,8 @@ class Controlador extends CI_Controller {
      * @param void
      * @return resultado
      */
-    public function destroyCart() {
+    public function destroyCart()
+    {
         return $this->cart->destroy();
     }
 
@@ -156,11 +152,13 @@ class Controlador extends CI_Controller {
      * @param int $id_producto
      * @return Object $producto
      */
-    public function getProduct($id_producto) {
+    public function getProduct($id_producto)
+    {
         return $this->modelo->getProductById($id_producto)->result();
     }
 
-    function divLogin() {
+    function divLogin()
+    {
         $data['skin'] = 0;
         if ($this->session->userdata('skin')) {
             $data['type'] = $this->session->userdata("type");
@@ -174,7 +172,8 @@ class Controlador extends CI_Controller {
         }
     }
 
-    function conectUser() {
+    function conectUser()
+    {
         $user = $this->input->post('user');
         $pass = md5($this->input->post('pass'));
         $datos = $this->modelo->conectUser($user, $pass);
@@ -191,12 +190,14 @@ class Controlador extends CI_Controller {
         echo json_encode(array("mensaje" => $msj));
     }
 
-    function close() {
+    function close()
+    {
         $this->session->sess_destroy();
         redirect(base_url());
     }
 
-    function addUser() {
+    function addUser()
+    {
         if ($this->session->userdata('type') == 1) {
             $id = '';
             $name = $this->input->post('name');
@@ -216,7 +217,8 @@ class Controlador extends CI_Controller {
         }
     }
 
-    function adCategory() {
+    function adCategory()
+    {
         if ($this->session->userdata('type') == 1) {
             $id = '';
             $name = $this->input->post('name');
@@ -225,23 +227,25 @@ class Controlador extends CI_Controller {
         }
     }
 
-    function adProduct() {
+    function adProduct()
+    {
         $id = '';
         $idUser = $this->session->userdata('id');
         $idCategory = $this->input->post('idCategory');
         $name = $this->input->post('name');
-        $foto = null;
+        $foto = $this->input->post('foto');
         $description = $this->input->post('description');
         $marc = $this->input->post('marc');
         $model = $this->input->post('model');
         $price = $this->input->post('price');
         $stock = $this->input->post('stock');
         $date = date('Y-m-d');
-
         $this->modelo->adProduct($id, $idUser, $idCategory, $name, $foto, $description, $marc, $model, $price, $stock, $date);
+        $this->bazar();
     }
 
-    function newConsumer() {
+    function newConsumer()
+    {
         $id = '';
         $name = $this->input->post('name');
         $surname = $this->input->post('surname');
@@ -259,7 +263,8 @@ class Controlador extends CI_Controller {
         echo json_encode(array("mensaje" => $msj));
     }
 
-    function upDateUser() {
+    function upDateUser()
+    {
         if ($this->session->userdata('type') == 1) {
             $code = $this->input->post('code');
             $name = $this->input->post('name');
@@ -273,35 +278,41 @@ class Controlador extends CI_Controller {
     }
 
     //funcion que carga la vista bazar con los productos
-    function bazar() {
+    function bazar()
+    {
         $date['datos'] = $this->modelo->productList()->result();
         $this->load->view('vitrina', $date);
     }
 
-    function userList() {
+    function userList()
+    {
         if ($this->session->userdata('type') == 1) {
             $date['datos'] = $this->modelo->userList()->result();
             $this->load->view('admin/userList', $date);
         }
     }
 
-    function userConsumer() {
+    function userConsumer()
+    {
         $code = $this->session->userdata('id');
         $date['datos'] = $this->modelo->userConsumer($code)->result();
         $this->load->view('consumer/editConsumer', $date);
     }
 
-    function productListAdmin() {
+    function productListAdmin()
+    {
         $date['datos'] = $this->modelo->productList()->result();
         $this->load->view('admin/productListAdmin', $date);
     }
 
-    function categoryList() {
+    function categoryList()
+    {
         $date['datos'] = $this->modelo->categoryList()->result();
         $this->load->view('admin/categoryListAdmin', $date);
     }
 
-    function accesUser() {
+    function accesUser()
+    {
         if ($this->session->userdata('type') == 1) {
             $this->load->view('admin/adminMenu');
         } else if ($this->session->userdata('type') == 2) {
@@ -309,26 +320,30 @@ class Controlador extends CI_Controller {
         }
     }
 
-    function newUser() {
+    function newUser()
+    {
         if ($this->session->userdata('type') == 1) {
             $this->load->view('admin/newUser');
         }
     }
 
-    function newProduct() {
+    function newProduct()
+    {
         if ($this->session->userdata('type') == 1) {
             $date['datos'] = $this->modelo->categoryList()->result();
             $this->load->view('admin/newProduct', $date);
         }
     }
 
-    function newCategory() {
+    function newCategory()
+    {
         if ($this->session->userdata('type') == 1) {
             $this->load->view('admin/newCategory');
         }
     }
 
-    function upCategory() {
+    function upCategory()
+    {
         if ($this->session->userdata('type') == 1) {
             $id = $this->input->post('code');
             $name = $this->input->post('name');
@@ -337,22 +352,19 @@ class Controlador extends CI_Controller {
         }
     }
 
-    function deleteUser() {
+    function deleteUser()
+    {
         $code = $this->input->post('code');
         $this->modelo->deleteUser($code);
     }
 
-    function deleteProduct() {
-        $code = $this->input->post($code);
-        $this->modelo->deleteProduct($code);
-    }
+//    function deleteProduct() {
+//        $code = $this->input->post($code);
+//        $this->modelo->deleteProduct($code);
+//    }
 
-    function deleteCategory() {
-        $code = $this->input->post('code');
-        $this->modelo->deleteCategory($code);
-    }
-
-    function editUser() {
+    function editUser()
+    {
         $code = $this->input->post('code');
         $respons = $this->modelo->editUser($code)->result();
         foreach ($respons as $fila):
@@ -366,7 +378,8 @@ class Controlador extends CI_Controller {
         echo json_encode(array("id_usuario" => $code, "nombre" => $nombre, "apellido" => $apellido, "email" => $email, "direccion" => $direccion, "usuario" => $usuario, 'tipo_usuario' => $typeUser));
     }
 
-    function edCategory() {
+    function edCategory()
+    {
         $code = $this->input->post('code');
         $respons = $this->modelo->edCategory($code)->result();
         foreach ($respons as $fila):
@@ -380,7 +393,8 @@ class Controlador extends CI_Controller {
         ));
     }
 
-    function editProduct() {
+    function editProduct()
+    {
         $code = $this->input->post('code');
         $category = $this->modelo->categoryList()->result();
         foreach ($category as $fila):

@@ -46,11 +46,11 @@ class Modelo extends CI_Model
      * Funcion que busca el producto por id
      * @param int $id
      * @return Object $producto
-    */
+     */
     function getProductById($id)
     {
         $this->db->select('*');
-        $this->db->where('id_producto',$id);
+        $this->db->where('id_producto', $id);
         return $this->db->get('productos');
     }
 
@@ -197,8 +197,8 @@ class Modelo extends CI_Model
     function upProduct($array)
     {
         $this->db->select('*');
-        $this->db->where('id_producto',$array['id_producto']);
-        $this->db->update('productos',$array);
+        $this->db->where('id_producto', $array['id_producto']);
+        $this->db->update('productos', $array);
     }
 
 }

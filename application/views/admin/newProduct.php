@@ -60,6 +60,7 @@
                 <span class="input-group"><span class="glyphicon glyphicon-compressed"></span> Stock:</span><br>
                 <input id="in-stock-product-new" class="form-control" type="text" placeholder="Stock" autofocus
                        required>
+                <input type="text" value="" id="imagePath" hidden="true">
             </div>
             <br>
             <button class="btn btn-block btn-success" onclick="adProduct();">Guardar Producto Nuevo</button>
@@ -71,18 +72,26 @@
     <div class="col-lg-6">
         <div class="">
             <!--div para visualizar en el caso de imagen-->
-            <div class="showImage">
-                <img id="imageUploaded" class="img-thumbnail" src="#"
-                     width="140" height="140">
+            <div id="showImage" class="showImage">
             </div>
-            <form id="uploadImage"  enctype="multipart/form-data" method="post">
-                <label>Subir una imagen</label><br/>
-                <input type="file" id="file" onchange="imagePreview();" class="file" name="userfile" size="20"/>
-                <button type="submit" class="btn btn-success">Subir Imagen</button>
-            </form>
-            <!--div para visualizar mensajes-->
+            <label>Subir una imagen</label><br/>
+            <input id="fileupload" type="file" name="files[]" data-url="http://localhost/index.php/fileupload/">
             <div class="messages"></div>
         </div>
         <div id="msj-reg-user"></div>
     </div>
 </div>
+<script>
+    $(function () {
+        $('#fileupload').fileupload({
+                dataType: 'json',
+                done: function (e, data) {
+                $.each(data.result.files, function (index, file) {
+                    $("#showImage").html("<img id='imageUploaded' class='img-thumbnail' src='#' width='140' height='140'>");
+                    $("#imageUploaded").attr('src', "<?php echo base_url() ?>" + "files/" + file.name);
+                    $("#imagePath").attr('value', 'files/' + file.name);
+                });
+            }
+        });
+    });
+</script>
